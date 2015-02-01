@@ -8,7 +8,7 @@
     <tr>
     </tr>
     <tr>
-      <td style="text-align:center"><h2><%= params[:amount] %> <%= params[:fromCurr]%> converts to <%= sprintf('%.2f', @result) %> <%= params[:toCurr] %> </h2></td>
+      <td style="text-align:center"><h2><%= params[:amount] %> <%= params[:from_currency]%> converts to <%= sprintf('%.2f', @result) %> <%= params[:to_currency] %> </h2></td>
     </tr>
     <tr>
       <td><%= link_to 'New conversion', controller: 'converts' %></td>

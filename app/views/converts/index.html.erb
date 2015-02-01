@@ -11,8 +11,8 @@
        <td>Amount: <%= number_field_tag 'amount' %></td>
      </tr>
      <tr>   
-       <td>From Currency: <%= text_field_tag 'fromCurr' %></td>
-       <td>To Currency: <%= text_field_tag 'toCurr' %></td>
+       <td>From Currency: <%=  base_currency_code_select("from_currency") %></td>
+       <td>To Currency: <%=  base_currency_code_select("to_currency") %></td>
      </tr>  
      <tr>
        <td>Date: <%= date_field_tag 'date', Time.new.strftime('%Y-%m-%d') %></td>
