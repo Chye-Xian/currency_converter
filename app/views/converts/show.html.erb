@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag "format.css" %>
+
+<div>
+<%= form_tag (converts_path :method=>'post') do %>
+   <table>
+     <tr>
+       <th rowspan="2" colspan="2"><h2>Currency converter</h2></th>
+     </tr>
+     <tr>
+     <tr>
+       <td>Amount: <%= number_field_tag 'amount' %></td>
+     </tr>
+     <tr>   
+       <td>From Currency: <%= text_field_tag 'fromCurr' %></td>
+       <td>To Currency: <%= text_field_tag 'toCurr' %></td>
+     </tr>  
+     <tr>
+       <td>Date: <%= date_field_tag 'date', Time.new.strftime('%Y-%m-%d') %></td>
+     </tr>  
+     <tr>
+       <td><%= submit_tag "Convert" %></td>
+     </tr>  
+    </table> 
+<% end %>  
+</div>
+

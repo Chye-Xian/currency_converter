@@ -13,9 +13,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#{I18n.locale}" lang="#{I18n.locale}">
 
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-type" content="application/javascript; charset=utf-8" />
     #{stylesheet_link_tag 'format.css', :cache => 'widget'}
-    #{javascript_include_tag 'jquery', :cache => 'widget'}
+    #{javascript_include_tag 'jquery', 'widget_support', :cache => 'widget'}
   </head>
 
   <body id="top" class="partner_search" data-lang="#{I18n.locale}">
@@ -79,13 +79,9 @@ EOHTML
 
     function replaceContentWithScript(scriptHref) {
       var scriptTag = document.createElement('script');
-      scriptTag.type = 'text/javascript';
+      scriptTag.type = 'application/javascript';
       scriptTag.src = scriptHref;
       document.body.appendChild(scriptTag);
-    }
-    
-    function replaceIFrameContent(content) {
-      $('#iframe_content').html(content);
     }
 
     function init() {
