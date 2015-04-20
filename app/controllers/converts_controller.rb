@@ -5,6 +5,10 @@ class ConvertsController < ApplicationController
   def index
   end
   
+  def show
+    render 'app/views/layouts/widget.js.erb'
+  end
+  
   def create
     require 'exchange'
     @amount = params[:amount].to_f

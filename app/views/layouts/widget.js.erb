@@ -1,0 +1,106 @@
+<% if params[:embed] %>
+
+  Widget = (function() {
+
+    var iFrame;
+    var initialContent; 
+    var iFrameDoc;
+
+    function htmlLayout() {
+      return '<%= escape_javascript(<<EOHTML)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#{I18n.locale}" lang="#{I18n.locale}">
+
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    #{stylesheet_link_tag 'format.css', :cache => 'widget'}
+    #{javascript_include_tag 'jquery', :cache => 'widget'}
+  </head>
+
+  <body id="top" class="partner_search" data-lang="#{I18n.locale}">
+    <div id="iframe_content"></div>
+  </body>
+</html>
+EOHTML
+      %>';
+    }
+
+    function locateIFrameDoc() {
+      var doc;
+      if ( iFrame.contentDocument ) { 
+        doc = iFrame.contentDocument; 
+      } else if ( iFrame.contentWindow ) {
+        doc = iFrame.contentWindow.document; 
+      } else {
+        doc = window.frames[iFrame.name].document;
+      }
+      return doc;
+    }
+
+    function createIFrame() {
+      var canvas = document.getElementById('widget_canvas');
+      iFrame = document.createElement('iframe');
+      iFrame.name = iFrame.id = 'my_widget';
+      iFrame.frameBorder = '0';
+      iFrame.scrolling = 'no';
+      iFrame.width = '380';
+      iFrame.height = '240';
+      canvas.style.width = '380px';
+      canvas.style.height = '240px';
+      canvas.appendChild(iFrame);
+      iFrame.onload = insertInitialContent;
+      iFrameDoc = locateIFrameDoc();
+    }
+
+    function populateIFrame() {
+      iFrameDoc.write(htmlLayout());
+      iFrameDoc.close();
+      initialContent = '<%= escape_javascript(yield) %>';
+    }
+
+    function replaceContent(content) {
+      if ( iFrame.contentWindow.replaceIFrameContent ) {
+        iFrame.contentWindow.replaceIFrameContent(content);
+      }
+      resizeIFrame();
+    }
+
+    function insertInitialContent() {
+      if ( initialContent ) {
+        replaceContent(initialContent);
+        initialContent = null;
+      }
+    }
+
+    function resizeIFrame() {
+      iFrame.height = iFrameDoc.body.scrollHeight;
+    }
+
+    function replaceContentWithScript(scriptHref) {
+      var scriptTag = document.createElement('script');
+      scriptTag.type = 'text/javascript';
+      scriptTag.src = scriptHref;
+      document.body.appendChild(scriptTag);
+    }
+    
+    function replaceIFrameContent(content) {
+      $('#iframe_content').html(content);
+    }
+
+    function init() {
+      createIFrame();
+      populateIFrame();
+      stylePoweredByLink();
+    }
+
+    init();
+
+    return { replaceContent: replaceContent, replaceContentWithScript: replaceContentWithScript };
+  })();
+
+<% else %>
+
+  Widget.replaceContent('<%= escape_javascript(yield) %>');
+
+<% end %>
