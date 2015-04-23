@@ -7,15 +7,15 @@
     var iFrameDoc;
 
     function htmlLayout() {
-      return '<%= escape_javascript(<<EOHTML)
+      return '<%= escape_javascript(<<EOHTML.html_safe)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#{I18n.locale}" lang="#{I18n.locale}">
 
   <head>
-    <meta http-equiv="Content-type" content="application/javascript; charset=utf-8" />
-    #{stylesheet_link_tag 'format.css', :cache => 'widget'}
-    #{javascript_include_tag 'jquery', 'widget_support', :cache => 'widget'}
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    #{stylesheet_link_tag "http://localhost:3000/assets/format.css", :cache => 'widget'}
+    #{javascript_include_tag "http://localhost:3000/assets/widget_support.js", :cache => 'widget'}
   </head>
 
   <body id="top" class="partner_search" data-lang="#{I18n.locale}">
@@ -79,7 +79,7 @@ EOHTML
 
     function replaceContentWithScript(scriptHref) {
       var scriptTag = document.createElement('script');
-      scriptTag.type = 'application/javascript';
+      scriptTag.type = 'text/javascript';
       scriptTag.src = scriptHref;
       document.body.appendChild(scriptTag);
     }
@@ -87,7 +87,6 @@ EOHTML
     function init() {
       createIFrame();
       populateIFrame();
-      stylePoweredByLink();
     }
 
     init();
@@ -97,6 +96,6 @@ EOHTML
 
 <% else %>
 
-  Widget.replaceContent('<%= escape_javascript(yield) %>');
+  window.parent.Widget.replaceContent('<%= escape_javascript(yield) %>');
 
 <% end %>

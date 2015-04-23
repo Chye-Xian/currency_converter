@@ -1,4 +1,4 @@
-<%= stylesheet_link_tag "format.css" %>
+<%= form_tag converts_url, :method=>'post', :remote => true do %>
 
 <div>
   <table>
@@ -8,7 +8,7 @@
     <tr>
     </tr>
     <tr>
-      <td><%= link_to 'New conversion', controller: 'converts' %></td>
+      <td><%= link_to 'New conversion', converts_url, :remote => true %></td>
     </tr>
   </table>
 </div>
