@@ -11,7 +11,7 @@
       <td style="text-align:center"><h2><%= params[:amount] %> <%= params[:fromCurr]%> converts to <%= sprintf('%.2f', @result) %> <%= params[:toCurr] %> </h2></td>
     </tr>
     <tr>
-      <td><%= link_to 'New conversion', controller: 'converts' %></td>
+      <td><%= link_to 'New conversion', converts_url, :remote => true %></td>
     </tr>
   </table>
 </div>

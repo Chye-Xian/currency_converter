@@ -1,4 +1,4 @@
-<% if params[:embed] %>
+ <% if params[:embed] %>
 
   Widget = (function() {
 
@@ -16,6 +16,12 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     #{stylesheet_link_tag "http://localhost:3000/assets/format.css", :cache => 'widget'}
     #{javascript_include_tag "http://localhost:3000/assets/widget_support.js", :cache => 'widget'}
+    <script>
+    $('a').click(function(event) {
+      event.preventDefault();
+      parent.Widget.replaceContentWithScript($(this).attr('href'));
+    });
+    </script>
   </head>
 
   <body id="top" class="partner_search" data-lang="#{I18n.locale}">

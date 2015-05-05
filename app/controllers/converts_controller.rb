@@ -16,8 +16,8 @@ class ConvertsController < ApplicationController
     require 'exchange'
     @amount = params[:amount].to_f
     @date = params[:date].split("-")
-    @result = @amount.in(params[:fromCurr].to_sym, at: Time.gm(@date[0],@date[1],@date[2]))
-              .to(params[:toCurr].to_sym).to_f
+    @result = @amount.in(params[:from_currency].to_sym, at: Time.gm(@date[0],@date[1],@date[2]))
+                  .to(params[:to_currency].to_sym).to_f
               
     render :layout => 'widget.js.erb', :content_type => 'application/javascript'
   end
